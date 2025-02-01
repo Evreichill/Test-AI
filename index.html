@@ -56,6 +56,13 @@
             animation: floatSquare 14s infinite ease-in-out;
         }
 
+        .shape.circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            animation: floatCircle 16s infinite ease-in-out;
+        }
+
         @keyframes float {
             0% {
                 transform: translateY(0);
@@ -89,6 +96,18 @@
             }
             100% {
                 transform: translate(0, 0) rotate(360deg);
+            }
+        }
+
+        @keyframes floatCircle {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            50% {
+                transform: translate(30px, 30px) scale(1.5);
+            }
+            100% {
+                transform: translate(0, 0) scale(1);
             }
         }
 
@@ -166,9 +185,13 @@
     <div class="background-animation">
         <div class="shape triangle" style="top: 10%; left: 20%;"></div>
         <div class="shape square" style="top: 40%; left: 70%;"></div>
-        <div class="shape" style="top: 80%; left: 50%; width: 40px; height: 40px;"></div>
+        <div class="shape circle" style="top: 80%; left: 50%;"></div>
         <div class="shape triangle" style="top: 30%; left: 90%;"></div>
         <div class="shape square" style="top: 20%; left: 10%;"></div>
+        <div class="shape circle" style="top: 60%; left: 30%;"></div>
+        <div class="shape triangle" style="top: 50%; left: 80%;"></div>
+        <div class="shape square" style="top: 70%; left: 20%;"></div>
+        <div class="shape circle" style="top: 10%; left: 60%;"></div>
     </div>
     <div class="container">
         <h1>Тест "Этичный помощник"</h1>
@@ -269,6 +292,32 @@
             resultText.innerText = `Ваш средний балл: ${averageScore.toFixed(1)} из 10.`;
             resultContainer.classList.add('active');
             resultContainer.style.display = 'block';
+
+            // Отправка данных на сервер
+            sendResultsToServer(averageScore);
+        }
+
+        function sendResultsToServer(averageScore) {
+            const url = 'https://formspree.io/f/xjkgrooe'; // Замените на ваш URL формы Formspree
+            const data = {
+                averageScore: averageScore,
+                answers: userAnswers
+            };
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                console.log('Результаты отправлены:', result);
+            })
+            .catch(error => {
+                console.error('Ошибка при отправке результатов:', error);
+            });
         }
 
         function showExplanationPage() {
