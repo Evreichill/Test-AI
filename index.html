@@ -177,6 +177,32 @@
             border-radius: 15px;
             text-align: left;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .explanation-content {
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        .bright-shape {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.3);
+            animation: floatBright 8s infinite ease-in-out;
+            border-radius: 50%;
+        }
+
+        @keyframes floatBright {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            50% {
+                transform: translate(50px, 50px) scale(1.5);
+            }
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
         }
     </style>
 </head>
@@ -192,6 +218,9 @@
         <div class="shape triangle" style="top: 50%; left: 80%;"></div>
         <div class="shape square" style="top: 70%; left: 20%;"></div>
         <div class="shape circle" style="top: 10%; left: 60%;"></div>
+        <div class="bright-shape" style="top: 5%; left: 5%; width: 50px; height: 50px;"></div>
+        <div class="bright-shape" style="top: 15%; left: 85%; width: 40px; height: 40px;"></div>
+        <div class="bright-shape" style="top: 85%; left: 15%; width: 60px; height: 60px;"></div>
     </div>
     <div class="container">
         <h1>Тест "Этичный помощник"</h1>
@@ -209,7 +238,7 @@
         </div>
         <div id="explanation-page">
             <h2>Объяснение ответов</h2>
-            <div id="explanation-content"></div>
+            <div class="explanation-content" id="explanation-content"></div>
             <button class="answer-btn" onclick="returnToQuiz()">Назад к результатам</button>
         </div>
     </div>
